@@ -161,9 +161,49 @@ plex = {'ui': {'slug': 'web',},
         'volume_add_support': True,
         'more_info': '<h4>Adding more media to Plex.</h4><p>You can add more Shares(with media) to Plex from the settings wizard of this Rock-on. Then, from Plex WebUI, you can update and re-index your library.</p>'}
 
+gitlab = {'ui': {'slug': 'web',
+                   'https': True,},
+            'containers': {'gitlab': {'image': 'gitlab/gitlab-ce',
+                                        'ports': {
+                                                '80': {
+                                                   'ui': True,
+                                                   'host_default': 8080,
+                                                   'protocol': 'tcp',
+                                                   'label': 'HTTP WebUI port',
+                                                   'description': 'GitLab WebUI port. Suggested default: 8080',},
+                                                '443': {
+                                                   'ui': True,
+                                                   'host_default': 8443,
+                                                   'protocol': 'tcp',
+                                                   'label': 'HTTPS WebUI port',
+                                                   'description': 'GitLab WebUI port. Suggested default: 8443',},
+                                                '22': {
+                                                   'ui': True,
+                                                   'host_default': 2222,
+                                                   'protocol': 'tcp',
+                                                   'label': 'SSH Gitlab port',
+                                                   'description': 'GitLab SSH port. Suggested default: 2222',}
+                                                },
+                                        'volumes': {
+                                                  '/var/opt/gitlab': {
+                                                     'description': 'Choose a Share for GitLab repositories. Eg: create a Share called gitlab-repos for this purpose alone.',
+                                                     'label': 'Repository Storage',
+                                                     'min_size': 1073741824,},
+                                                  '/etc/gitlab': {
+                                                     'description': 'Choose a Share for GitLab configuration. Eg: create a Share called gitlab-config for this purpose alone.',
+                                                     'label': 'Config Storage',},
+                                                  },
+                                        'launch_order': 1,},
+                              },
+            'description': 'Git repository hosting and collaboration',
+            'website': 'https://about.gitlab.com/',
+            'icon': 'https://about.gitlab.com/images/wordmark.png',
+            'more_info': '<p>Default username for your GitLab UI is<code>root</code>and password is<code>5iveL!fe</code></p>',}
+
 rockons = {'OpenVPN': openvpn,
            'OwnCloud': owncloud,
            'Syncthing': syncthing,
            'Transmission': transmission,
            'BTSync': btsync,
-           'Plex': plex, }
+           'Plex': plex, 
+           'GitLab': gitlab, }
